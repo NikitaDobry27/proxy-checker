@@ -6,13 +6,11 @@ def make_request(url, proxy):
 
   try:
     response = requests.get(url, proxies={"http": proxy, "https": proxy}, verify=True)
-  except requests.exceptions.ProxyError as e:
+  except requests.exceptions.ProxyError:
     return None
-  except requests.exceptions.SSLError as sse:
+  except requests.exceptions.SSLError:
     return None
-
   else:
-   
     return response.text
 
 
