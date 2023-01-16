@@ -2,15 +2,15 @@ import requests
 import concurrent.futures
 
 
-
 def make_request(url, proxy):
 
   try:
-    response = requests.get(url, proxies={"http": proxy, "https": proxy})
+    response = requests.get(url, proxies={"http": proxy, "https": proxy}, verify=True)
   except requests.exceptions.ProxyError as e:
-   
-    print("Proxy error occurred for proxy {}: {}. Continuing to next proxy...".format(proxy, e))
     return None
+  except requests.exceptions.SSLError as sse:
+    return None
+
   else:
    
     return response.text
@@ -19,7 +19,7 @@ def make_request(url, proxy):
 url = "https://checker.soax.com/api/ipinfo"
 
 
-proxies = ["http://YT7fBfPlVx5S09VH:wifi;at;;styria;@proxy.soax.com:{}".format(port) for port in range(9000, 9000 + int(input("Insert desired number of port: ")))]
+proxies = ["http://YT7fBfPlVx5S09VH:wifi;na;;;@proxy.soax.com:{}".format(port) for port in range(9000, 9000 + int(input("Insert desired number of port: ")))]
 
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -49,3 +49,4 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
   print("Total requests: {}".format(len(results)))
   print("Uniq IPs: {}".format(uniq_results_count))
   print("Duplicated IPs: {}".format(duplicated_results))
+  
