@@ -17,7 +17,7 @@ def make_request(url, proxy):
 url = "https://checker.soax.com/api/ipinfo"
 
 num_of_ports = int(input("Insert desired number of port: "))
-proxies = ["http://YT7fBfPlVx5S09VH:wifi;us;;;@proxy.soax.com:{}".format(port) for port in range(9000, 9000 + num_of_ports)]
+proxies = ["http://{login}:{pass}@{host}:{}".format(port) for port in range(9000, 9000 + num_of_ports)]
 
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
